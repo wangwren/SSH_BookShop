@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.gwc {width: 100%;width: 100%;min-height:170px; height:auto; _height:auto;float: left;}
+.gwc1{width: 1200px;height: 170px;margin:0px auto;margin-top: 50px;border-radius: 8px;background: #f0f0f0;}
+.gwc1z{width: 550px;height: 150px;margin-top: 10px;float: left;margin-left: 10px;}
+.gwc1zz{width: 150px;height: 150px;float: left;}
+.gwc1zz img{width: 100%;height: 100%}
+.gwc1zy{width: 300px;height: 150px;float: right;}
+.gwc1zy h1{font-size: 20px;line-height: 50px;margin-top:20px;}
+.gwc1zy p{font-size: 14px;color: #5c5c5c;line-height: 20px;}
+.gwc1y{width: 600px;float: right;height: 150px;margin-top: 10px;}
+.gwc1y table{width: 600px;height: 150px;text-align: center;}
+.gwc1y1 td{font-size: 18px;font-weight: bolder;}
+.gwc1y2 td a{padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;background: red;color: #fff;}
+.shdz{width: 1200px;height: 70px;border-radius: 8px;background: #f0f0f0;margin:0px auto;margin-top: 50px;}
+.shdz table{width: 700px;height: 70px;margin:0px auto;}
+.shdz table td input{float: left; border:none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  width: 86%;
+color:#000;
+height: 70%;}
+.shdz table td{width:50%;}
+.zongjia{width:1200px;height:70px;margin:0px auto;background:#f0f0f0;border-radius:8px;margin-top:50px;}
+.zongjia table{width:600px;height:70px;margin:0px auto;}
+.zongjia table td{text-align:center;font-size:18px;font-weight:bolder;}
+.tijiao{width:180px;text-align:center;height:60px;margin:0px auto;background:red;margin-top:50px;margin-bottom:100px;border-radius:8px;}
+.tijiao a{line-height:60px;font-size:20px;display:block;color:#fff;}

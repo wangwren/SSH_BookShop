@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/scott">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+		
+	</bean>
+	<bean id="sessionFactory"		
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"><!--class=" org.springframework.orm.hibernate3.LocalSessionFactoryBean"--> 
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLInnoDBDialect
+				</prop>
+				<prop key="show_sql">
+					true
+				</prop>
+			</props>	
+		</property>
+		
+		<property name="annotatedClasses">
+		  <list>
+		    <value>com.dhee.vo.EmpVo</value>
+		    <value>com.dhee.vo.BooksVo</value>
+		    <value>com.dhee.vo.UsersVo</value>
+		    <value>com.dhee.vo.RewardVo</value>
+		    <value>com.dhee.vo.OrdersVo</value>
+		    <value>com.dhee.vo.OrderItemVo</value>
+		  </list>
+		</property>
+		
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="empDao" class="com.dhee.dao.EmpDao">
+	 <property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="login" class="com.dhee.action.LoginAction">
+	<property name="empDao" ref="empDao">
+	</property>
+	</bean>
+	
+	<!-- 首页 -->
+	<bean id="indexDao" class="com.dhee.dao.IndexDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="index" class="com.dhee.action.IndexAction">
+		<property name="indexDao" ref="indexDao"></property>
+	</bean>
+	
+	<!-- 用户注册登录 -->
+	<bean id="userDao" class="com.dhee.dao.UserDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="userAction" class="com.dhee.action.UserAction">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	
+	<!-- 购买图书 -->
+	<!-- <bean id="cart" class="com.dhee.vo.Cart">
+	</bean> -->
+	
+	<bean id="bookDao" class="com.dhee.dao.BookDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="buyAction" class="com.dhee.action.BuyAction">
+		<!-- <property name="cart" ref="cart"></property> -->
+		<property name="bookDao" ref="bookDao"></property>
+	</bean>
+	
+	<!-- 收货地址 -->
+	<bean id="rewardDao" class="com.dhee.dao.RewardDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="rewardAction" class="com.dhee.action.RewardAction">
+		<property name="rewardDao" ref="rewardDao"></property>
+	</bean>
+	
+	<!-- 订单 -->
+	<bean id="orderDao" class="com.dhee.dao.OrderDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="orderAction" class="com.dhee.action.OrderAction">
+		<property name="orderDao" ref="orderDao"></property>
+	</bean>
+</beans>

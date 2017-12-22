@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<constant name="struts.objectFactory" value="spring" />
+<constant name="struts.i18n.encoding" value="UTF-8"/>
+<constant name="struts.locale" value="zh_CN"/>
+
+<!-- 异常处理，如果发生异常，就跳转到error.jsp页面，其他package全部继承struts-error -->
+	<package name="struts-error" extends="struts-default">
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+	</package>
+	
+	
+<!-- 首页 -->
+<package name="default" extends="struts-error" namespace="/">
+
+<!-- <action name="emp_login" class="login">
+  <result>/index.jsp</result>
+</action> -->
+
+	<action name="index" class="index" method="index">
+		<result>/index.jsp</result>
+	</action>
+
+<!-- 用户登录，注册 -->
+</package>
+
+	<package name="user" extends="struts-default" namespace="/">
+	<!-- 用户注册 -->
+		<action name="userAdd" class="userAction" method="add">
+			<result>/registerSuccess.jsp</result>
+			<result name="registerError">/login.jsp</result>
+		</action>
+		
+		<!-- 用户登录 -->
+		<action name="userLogin" class="userAction" method="login">
+			<result type="redirectAction">
+				<param name="actionName">index</param>
+            	<param name="namespace">/</param>
+			</result>
+			
+			<result name="nouser">/message.jsp</result>
+			<result name="admin">/message.jsp</result>
+		</action>
+		
+		<!-- 注销 -->
+		<action name="userLoginOut" class="userAction" method="loginOut">
+			<result type="redirectAction">
+				<param name="actionName">index</param>
+            	<param name="namespace">/</param>
+			</result>
+		</action>
+	</package>
+	
+	<!-- 购物车 -->
+	<package name="cart" extends="struts-error" namespace="/">
+		<action name="buy" class="buyAction" method="buy">
+			<result type="redirectAction">
+				<param name="actionName">index</param>
+            	<param name="namespace">/</param>
+			</result>
+			<result name="nologin">/message.jsp</result>
+		</action>
+		
+		<action name="deleteCart" class="buyAction" method="delete">
+			<result>/listcart.jsp</result>
+		</action>
+		
+		
+		<!-- 显示地址 -->
+		<action name="userAddress" class="rewardAction" method="find">
+			<result>/listcart.jsp</result>
+		</action>
+		
+		<!-- 添加地址 -->
+		<action name="addAddress" class="rewardAction" method="add">
+			<result>/addressSuccess.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 订单 -->
+	<package name="order" extends="struts-error" namespace="/">
+		<action name="confirmOrder" class="orderAction" method="confirm">
+			<result>/orderAddSuccess.jsp</result>
+		</action>
+		
+		<action name="findOrder" class="orderAction" method="findOrder">
+			<result>/ordersList.jsp</result>
+		</action>
+	</package>
+</struts>    
