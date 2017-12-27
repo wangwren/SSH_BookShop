@@ -103,7 +103,7 @@ public class UserAction extends ActionSupport implements RequestAware,SessionAwa
 		//如果是管理员
 		if(u != null) {
 			if(u.getUlimit() == 1) {
-				request.put("message", "欢迎您，管理员！！！");
+				session.put("user", u);
 				return "admin";
 			}
 		}

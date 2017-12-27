@@ -46,7 +46,7 @@
 			</result>
 			
 			<result name="nouser">/message.jsp</result>
-			<result name="admin">/message.jsp</result>
+			<result name="admin" type="redirect">/admin/index.jsp</result>
 		</action>
 		
 		<!-- 注销 -->
@@ -92,6 +92,10 @@
 		
 		<action name="findOrder" class="orderAction" method="findOrder">
 			<result>/ordersList.jsp</result>
+		</action>
+		
+		<action name="orderItemFind" class="orderAction" method="orderItemFind">
+			<result>/orderItemList.jsp</result>
 		</action>
 	</package>
 </struts>    

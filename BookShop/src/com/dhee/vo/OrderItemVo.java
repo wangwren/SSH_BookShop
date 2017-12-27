@@ -1,5 +1,9 @@
 package com.dhee.vo;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,11 +25,30 @@ import javax.persistence.Table;
 public class OrderItemVo {
 
 	private int id;
+	@Column(name="quantity")
 	private int quantity;
+	@Column(name="price")
 	private double price;
+	@Column(name="order_id")
 	private int order_id;
+	@Column(name="book_id")
 	private int book_id;
 	
+	/*private BooksVo book;
+	private OrdersVo order;
+	
+	public BooksVo getBook() {
+		return book;
+	}
+	public void setBook(BooksVo book) {
+		this.book = book;
+	}
+	public OrdersVo getOrder() {
+		return order;
+	}
+	public void setOrder(OrdersVo order) {
+		this.order = order;
+	}*/
 	@Id
 	public int getId() {
 		return id;

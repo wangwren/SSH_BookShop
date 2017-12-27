@@ -28,7 +28,7 @@
     			<td style="color: red">${order.state==true?'已发货':'未发货' }</td>
     			<td><s:property value="#order.price"/></td>
     			<td>
-	    			<a href="#">查看明细</a>
+	    			<s:a href="orderItemFind?orderid=%{#order.id}">查看明细</s:a>
 	    			<a href="#">删除</a>
 	    		</td>
     		</tr>
