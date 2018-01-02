@@ -11,7 +11,7 @@ import com.dhee.vo.UsersVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 完成人:胡艺馨，李屹勃
+ * 
  * 关于用户的处理
  * @author wwr
  *

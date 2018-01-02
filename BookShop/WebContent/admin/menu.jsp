@@ -130,7 +130,7 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/jsp/customer/add.jsp" 
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/admin/addCategory.jsp" 
 														target=main>－ 添加图书类型</A></TD>
 												</TR>
 												<TR> 
@@ -155,11 +155,11 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="linkmanServlet?method=add"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/Book_addUI"
 														target=main>－ 添加图书</A></TD>
 												</TR>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="linkmanServlet?method=list"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/Book_list"
 														target=main>－查看图书</A></TD>
 												</TR>
 												

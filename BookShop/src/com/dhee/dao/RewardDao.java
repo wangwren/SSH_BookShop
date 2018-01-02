@@ -27,6 +27,11 @@ public class RewardDao {
 		return list;
 	}
 
+	/**
+	 * ÃÌº”µÿ÷∑
+	 * @param reward
+	 * @throws Exception
+	 */
 	public void addAddress(RewardVo reward) throws Exception{
 		
 		this.hibernateTemplate.save(reward);

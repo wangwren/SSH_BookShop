@@ -37,6 +37,7 @@
 		    <value>com.dhee.vo.RewardVo</value>
 		    <value>com.dhee.vo.OrdersVo</value>
 		    <value>com.dhee.vo.OrderItemVo</value>
+		    <value>com.dhee.vo.CategorysVo</value>
 		  </list>
 		</property>
 		
@@ -49,7 +50,7 @@
 	 <property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="login" class="com.dhee.action.LoginAction">
+	<bean id="login" class="com.dhee.action.LoginAction" scope="prototype">
 	<property name="empDao" ref="empDao">
 	</property>
 	</bean>
@@ -59,7 +60,7 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="index" class="com.dhee.action.IndexAction">
+	<bean id="index" class="com.dhee.action.IndexAction" scope="prototype">
 		<property name="indexDao" ref="indexDao"></property>
 	</bean>
 	
@@ -68,7 +69,7 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="userAction" class="com.dhee.action.UserAction">
+	<bean id="userAction" class="com.dhee.action.UserAction" scope="prototype">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
 	
@@ -81,7 +82,7 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="buyAction" class="com.dhee.action.BuyAction">
+	<bean id="buyAction" class="com.dhee.action.BuyAction" scope="prototype">
 		<!-- <property name="cart" ref="cart"></property> -->
 		<property name="bookDao" ref="bookDao"></property>
 	</bean>
@@ -91,7 +92,7 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="rewardAction" class="com.dhee.action.RewardAction">
+	<bean id="rewardAction" class="com.dhee.action.RewardAction" scope="prototype">
 		<property name="rewardDao" ref="rewardDao"></property>
 	</bean>
 	
@@ -100,7 +101,19 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="orderAction" class="com.dhee.action.OrderAction">
+	<bean id="orderAction" class="com.dhee.action.OrderAction" scope="prototype">
 		<property name="orderDao" ref="orderDao"></property>
+	</bean>
+	
+	<!-- 图书类型 -->
+	<bean id="categoryDao" class="com.dhee.dao.CategoryDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	
+	<!-- 图书 -->
+	<bean id="bookAction" class="com.dhee.action.BookAction">
+		<property name="categoryDao" ref="categoryDao"/>
+		<property name="bookDao" ref="bookDao"></property>
 	</bean>
 </beans>

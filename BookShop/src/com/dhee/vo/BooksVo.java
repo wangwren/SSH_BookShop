@@ -1,8 +1,12 @@
 package com.dhee.vo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 /*
  * create table book
@@ -30,6 +34,12 @@ public class BooksVo {
 	private String description;
 	private int category_id;
 	
+	public int getCategory_id() {
+		return category_id;
+	}
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
+	}
 	@Id
 	public int getId() {
 		return id;
@@ -67,12 +77,14 @@ public class BooksVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getCategory_id() {
+	/*public int getCategory_id() {
 		return category_id;
 	}
 	public void setCategory_id(int category_id) {
 		this.category_id = category_id;
-	}
+	}*/
+	
+	
 	
 	
 }

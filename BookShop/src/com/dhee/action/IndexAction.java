@@ -10,7 +10,7 @@ import com.dhee.vo.BooksVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 完成人:佟荣新，王威人
+ * 
  * 首页，浏览所有图书
  * @author wwr
  *

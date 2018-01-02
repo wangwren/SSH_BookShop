@@ -13,7 +13,7 @@ import com.dhee.vo.UsersVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 完成人:王威人
+ * 
  * 将图书添加至购物车
  * @author wwr
  *

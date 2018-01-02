@@ -11,7 +11,7 @@ import com.dhee.vo.RewardVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 完成人:景思源，姜松
+ * 
  * 用户地址
  * @author wwr
  *

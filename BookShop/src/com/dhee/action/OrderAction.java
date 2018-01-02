@@ -16,7 +16,7 @@ import com.dhee.vo.OrdersVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 完成人:王威人
+ * 
  * 订单相关
  * @author wwr
  *

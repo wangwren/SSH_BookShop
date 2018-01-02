@@ -98,4 +98,16 @@
 			<result>/orderItemList.jsp</result>
 		</action>
 	</package>
+	
+	<!-- 图书 ,这是struts2.3，通配符不需要指定方法-->
+	<package name="book" extends="struts-default" namespace="/">
+		<action name="Book_*" class="bookAction" method="{1}">
+			<result>/admin/addBook.jsp</result>
+			<result name="yes">/admin/message.jsp</result>
+			<result name="list">/admin/listBook.jsp</result>
+			<result name="delete">/admin/message.jsp</result>
+			<result name="find">/admin/updateBook.jsp</result>
+			<result name="update">/admin/message.jsp</result>
+		</action>
+	</package>
 </struts>    
