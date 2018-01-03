@@ -1,24 +1,19 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<TITLE>修改图书</TITLE> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>图书类型添加</title>
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-
-
-<META content="MSHTML 6.00.2900.3492" name=GENERATOR>
-</HEAD>
+</head>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/Book_update"
-		method=post>
-		
-
+		action="${pageContext.request.contextPath }/Category_add"
+		>
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
@@ -31,13 +26,14 @@
 				</TR>
 			</TBODY>
 		</TABLE>
+		
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
 					<TD vAlign=top width="100%" bgColor=#ffffff>
 						<TABLE cellSpacing=0 cellPadding=5 width="100%" border=0>
 							<TR>
-								<TD class=manageHead>当前位置：图书管理 &gt; 修改图书</TD>
+								<TD class=manageHead>当前位置：图书类型管理 &gt; 添加图书类型</TD>
 							</TR>
 							<TR>
 								<TD height=2></TD>
@@ -46,52 +42,25 @@
 						
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 						  
-						    
 							<TR>
-								<td>图书名称：</td>
+								<td>图书类型名称：</td>
 								<td>
+								<input type="hidden" value="${max}" name="category.id">
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="book.name" value="${book.name}">
-								</td>
-								<td>作者：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="book.author" value="${book.author}">
-								</td>
-							</TR>
-							
-							<TR>
-								
-								<td>价格 ：</td>
-								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="book.price" value="${book.price}">
-								</td>
-							</TR>
-							
-							<TR>
-								
-								
-								<td>图书类型 ：</td>
-								<td>
-								<select class="textbox" id="sChannel2" style="WIDTH: 180px" maxLength=50 name="book.category_id">
-									<option value="${ca.id }">${ca.name }</option>
-									<s:iterator var="c" value="#request.categorys">
-										<option value="${c.id }">${c.name}</option>
-									</s:iterator>
-								</select>
+														style="WIDTH: 180px" maxLength=50 name="category.name">
 								</td>
 								<td>描述：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="book.description" value="${book.description}">
+														style="WIDTH: 180px" maxLength=50 name="category.description">
 								</td>
 							</TR>
+							
 	
 							<tr>
 								<td rowspan=2>
 								<INPUT class=button id=sButton2 type=submit
-														value=" 修改 " name=sButton2>
+														value=" 保存 " name=sButton2>
 								</td>
 							</tr>
 						</TABLE>
@@ -100,4 +69,4 @@
 		</TABLE>
 	</FORM>
 </BODY>
-</HTML>
+</html>

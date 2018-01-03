@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
+import org.aspectj.util.FileUtil;
 
 import com.dhee.dao.BookDao;
 import com.dhee.dao.CategoryDao;
@@ -29,8 +30,17 @@ public class BookAction extends ActionSupport implements RequestAware{
 	private String imgFileName;
 	private BookDao bookDao;
 	private String id;
+	private String caid;
 	
 	
+
+	public String getCaid() {
+		return caid;
+	}
+
+	public void setCaid(String caid) {
+		this.caid = caid;
+	}
 
 	public String getId() {
 		return id;
@@ -121,7 +131,12 @@ public class BookAction extends ActionSupport implements RequestAware{
 		if(!file.exists())
             file.mkdirs();
 		
-		FileOutputStream out=
+		//new File(imgRealPath,this.uploadImageFileName) 意思是在前边的目录下创建后边的文件
+	    //下边意思是复制文件，把前边的文件复制到后边的文件中
+		FileUtil.copyFile(img, new File(realPath, imgFileName));
+		
+		//以下是自己编写的io流文件上传，服务器关闭后，不久后便会自动删除
+		/*FileOutputStream out=
                 new FileOutputStream(new File(file,getImgFileName()));
 		
 		FileInputStream in=new FileInputStream(getImg());
@@ -132,7 +147,7 @@ public class BookAction extends ActionSupport implements RequestAware{
         while((len=in.read(buffer))>0)
             out.write(buffer,0,len);
         out.close();
-        in.close();
+        in.close();*/
 		
         bookDao.add(book);
         request.put("message", "添加成功！！！");
@@ -211,6 +226,19 @@ public class BookAction extends ActionSupport implements RequestAware{
 		request.put("message", "修改图书成功!!!");
 		
 		return "update";
+	}
+	
+	/**
+	 * 通过图书类型查询图书
+	 * @return
+	 * @throws Exception
+	 */
+	public String findByCid() throws Exception{
+		
+		int id = Integer.parseInt(caid);
+		List<BooksVo> list = bookDao.findByCid(id);
+		request.put("cbooks", list);
+		return "findByCid";
 	}
 
 }

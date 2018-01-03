@@ -61,7 +61,8 @@
 	</bean>
 	
 	<bean id="index" class="com.dhee.action.IndexAction" scope="prototype">
-		<property name="indexDao" ref="indexDao"></property>
+		<property name="indexDao" ref="indexDao"/>
+		<property name="categoryDao" ref="categoryDao"/>
 	</bean>
 	
 	<!-- 用户注册登录 -->
@@ -108,15 +109,18 @@
 		<property name="rewardDao" ref="rewardDao"/>
 	</bean>
 	
+	<!-- 图书 -->
+	<bean id="bookAction" class="com.dhee.action.BookAction">
+		<property name="categoryDao" ref="categoryDao"/>
+		<property name="bookDao" ref="bookDao"></property>
+	</bean>
+	
 	<!-- 图书类型 -->
 	<bean id="categoryDao" class="com.dhee.dao.CategoryDao">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	
-	<!-- 图书 -->
-	<bean id="bookAction" class="com.dhee.action.BookAction">
+	<bean id="categoryAction" class="com.dhee.action.CategoryAction">
 		<property name="categoryDao" ref="categoryDao"/>
-		<property name="bookDao" ref="bookDao"></property>
 	</bean>
 </beans>

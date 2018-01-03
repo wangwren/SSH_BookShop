@@ -124,7 +124,20 @@
 			<result name="list">/admin/listBook.jsp</result>
 			<result name="delete">/admin/message.jsp</result>
 			<result name="find">/admin/updateBook.jsp</result>
-			<result name="update">message.jsp</result>
+			<result name="update">/message.jsp</result>
+			<result name="findByCid">/index.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 图书类型 -->
+	<package name="category" extends="struts-default" namespace="/">
+		<action name="Category_*" class="categoryAction" method="{1}">
+			<result name="add">/admin/message.jsp</result>
+			<result name="addUI">/admin/addCategory.jsp</result>
+			<result name="findAll">/admin/listCategory.jsp</result>
+			<result name="delete">/admin/message.jsp</result>
+			<result name="findById">/admin/updateCategory.jsp</result>
+			<result name="update">/admin/message.jsp</result>
 		</action>
 	</package>
 </struts>    

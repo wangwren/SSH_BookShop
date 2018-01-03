@@ -67,4 +67,11 @@ public class BookDao {
 		this.hibernateTemplate.update(book);
 		
 	}
+	
+	public List<BooksVo> findByCid(int id) throws Exception{
+		
+		List<BooksVo> list = this.hibernateTemplate.find("from BooksVo where category_id=?", id);
+		
+		return list;
+	}
 }

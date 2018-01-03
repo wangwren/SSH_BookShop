@@ -69,18 +69,10 @@
 		</div>
 		<div class="top2">
 			<ul>
-				<li><a href="">文艺</a></li>
-				<li><a href="">童书</a></li>
-				<li><a href="">教育</a></li>
-				<li><a href="">人文社科</a></li>
-				<li><a href="">经管</a></li>
-				<li><a href="">励志</a></li>
-				<li><a href="">科技</a></li>
-				<li><a href="">科技</a></li>
-				<li><a href="">科技</a></li>
-				<li><a href="">科技</a></li>
-				<li><a href="">人文社科</a></li>
-
+				<li><a href="${pageContext.request.contextPath }/index">首页</a></li>
+				<s:iterator var="ca" value="#session.categorys">
+					<li><a href="${pageContext.request.contextPath }/Book_findByCid?caid=${ca.id}">${ca.name}</a></li>
+				</s:iterator>
 			</ul>
 		</div>
 
@@ -129,31 +121,60 @@
 	
 	<!-- 显示图书 -->
 	<div class="xianshi">
-		<s:iterator var="book" value="#request.books">
-			<div class="PX1_mid1">
-				<div class="PX1_mid1z">
-					<img src="images/${book.image }">
-				</div>
-				<div class="PX1_mid1y">
-					<div class="PX1_mid1_text">
-						<h2><s:property value="#book.name"/> </h2>
-						<p class="PX1_mid1_text1"><s:property value="#book.description"/></p>
-						<p class="PX1_mid1_text2">作者：<s:property value="#book.author"/></p>
-						<h3>￥<s:property value="#book.price"/></h3>
+		<s:if test="#request.cbooks==null">
+			<s:iterator var="book" value="#request.books">
+				<div class="PX1_mid1">
+					<div class="PX1_mid1z">
+						<img src="images/${book.image }">
 					</div>
-					<s:if test="#session.user!=null">
-						<div class="PX1_mid1_buttom">
-							<a href="${pageContext.request.contextPath }/buy?bookid=${book.id}" onclick="buySuccess()">加入购物车</a>
+					<div class="PX1_mid1y">
+						<div class="PX1_mid1_text">
+							<h2><s:property value="#book.name"/> </h2>
+							<p class="PX1_mid1_text1"><s:property value="#book.description"/></p>
+							<p class="PX1_mid1_text2">作者：<s:property value="#book.author"/></p>
+							<h3>￥<s:property value="#book.price"/></h3>
 						</div>
-					</s:if>
-					<s:else>
-						<div class="PX1_mid1_buttom">
-							<a href="${pageContext.request.contextPath }/buy?bookid=${book.id}">加入购物车</a>
-						</div>
-					</s:else>
+						<s:if test="#session.user!=null">
+							<div class="PX1_mid1_buttom">
+								<a href="${pageContext.request.contextPath }/buy?bookid=${book.id}" onclick="buySuccess()">加入购物车</a>
+							</div>
+						</s:if>
+						<s:else>
+							<div class="PX1_mid1_buttom">
+								<a href="${pageContext.request.contextPath }/buy?bookid=${book.id}">加入购物车</a>
+							</div>
+						</s:else>
+					</div>
 				</div>
-			</div>
-		</s:iterator>
+			</s:iterator>
+		</s:if>
+		<s:elseif test="#request.cbooks!=null">
+			<s:iterator var="book" value="#request.cbooks">
+				<div class="PX1_mid1">
+					<div class="PX1_mid1z">
+						<img src="images/${book.image }">
+					</div>
+					<div class="PX1_mid1y">
+						<div class="PX1_mid1_text">
+							<h2><s:property value="#book.name"/> </h2>
+							<p class="PX1_mid1_text1"><s:property value="#book.description"/></p>
+							<p class="PX1_mid1_text2">作者：<s:property value="#book.author"/></p>
+							<h3>￥<s:property value="#book.price"/></h3>
+						</div>
+						<s:if test="#session.user!=null">
+							<div class="PX1_mid1_buttom">
+								<a href="${pageContext.request.contextPath }/buy?bookid=${book.id}" onclick="buySuccess()">加入购物车</a>
+							</div>
+						</s:if>
+						<s:else>
+							<div class="PX1_mid1_buttom">
+								<a href="${pageContext.request.contextPath }/buy?bookid=${book.id}">加入购物车</a>
+							</div>
+						</s:else>
+					</div>
+				</div>
+			</s:iterator>
+		</s:elseif>
 	</div>
 	<script type="text/javascript">
 		function buySuccess() {

@@ -130,11 +130,11 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/admin/addCategory.jsp" 
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/Category_addUI" 
 														target=main>－ 添加图书类型</A></TD>
 												</TR>
 												<TR> 
-													<TD class=menuSmall><A class=style2 href="customerServlet?method=list"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/Category_findAll"
 														target=main>－ 查看图书类型</A></TD>
 												</TR>
 												
