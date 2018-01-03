@@ -180,11 +180,11 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="#"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/Order_listAll?state=false"
 														target=main>－查看未发货订单</A></TD>
 												</TR>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="#"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/Order_listAll?state=true"
 														target=main>－查看已发货订单</A></TD>
 												</TR>
 												
@@ -205,7 +205,7 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="#"
+													<TD class=menuSmall><A class=style2 href="User_findAll"
 														target=main>－ 查看所有用户信息</A></TD>
 												</TR>
 											</TBODY>

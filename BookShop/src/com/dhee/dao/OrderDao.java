@@ -51,11 +51,67 @@ public class OrderDao {
 		
 		return list;
 	}
+	
+	/**
+	 * 查询指定订单编号的订单信息
+	 * @param orderId
+	 * @return
+	 * @throws Exception
+	 */
+	public OrdersVo findOrderByOrderId(int orderId) throws Exception{
+		
+		String hql = "from OrdersVo where id=?";
+		List<OrdersVo> list = this.hibernateTemplate.find(hql, orderId);
+		OrdersVo order = null;
+		for(OrdersVo or : list) {
+			order = or;
+		}
+		
+		return order;
+	}
 
+	/**
+	 * 查询指定订单项
+	 * @param id
+	 * @return
+	 */
 	public List<OrderItemVo> findOrderItem(int id) {
 		
 		String hql = "from OrderItemVo where order_id=?";
 		List<OrderItemVo> list = this.hibernateTemplate.find(hql, id);
 		return list;
+	}
+
+	/**
+	 * 后台查询所有订单
+	 * @param st
+	 */
+	public List<OrdersVo> listAll(boolean st) {
+		
+		String hql = "from OrdersVo where state=?";
+		List<OrdersVo> list = this.hibernateTemplate.find(hql, st);
+		return list;
+	}
+	
+	public void ship(int id) throws Exception{
+		
+		OrdersVo order = this.findOrderByOrderId(id);
+		order.setState(true);
+		
+		this.hibernateTemplate.update(order);
+	}
+
+	/**
+	 * 用户删除订单信息,和订单项信息
+	 * @param id
+	 */
+	public void delete(int id) throws Exception{
+		
+		OrdersVo order = this.findOrderByOrderId(id);
+		this.hibernateTemplate.delete(order);
+		
+		//删除订单项
+		List<OrderItemVo> list = this.findOrderItem(id);
+		this.hibernateTemplate.deleteAll(list);
 	}
 }

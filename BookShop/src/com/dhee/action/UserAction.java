@@ -124,6 +124,19 @@ public class UserAction extends ActionSupport implements RequestAware,SessionAwa
 		
 		return SUCCESS;
 	}
+	
+	/**
+	 * 查询所有用户
+	 * @return
+	 * @throws Exception
+	 */
+	public String findAll() throws Exception{
+		
+		List<UsersVo> list = userDao.findAll();
+		request.put("users", list);
+		
+		return SUCCESS;
+	}
 
 	
 }

@@ -1,5 +1,6 @@
 package com.dhee.action;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -7,12 +8,17 @@ import java.util.Map;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.dhee.dao.BookDao;
 import com.dhee.dao.OrderDao;
 import com.dhee.dao.RewardDao;
+import com.dhee.dao.UserDao;
+import com.dhee.vo.BooksVo;
 import com.dhee.vo.Cart;
 import com.dhee.vo.CartItem;
 import com.dhee.vo.OrderItemVo;
 import com.dhee.vo.OrdersVo;
+import com.dhee.vo.RewardVo;
+import com.dhee.vo.UsersVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -24,13 +30,38 @@ import com.opensymphony.xwork2.ActionSupport;
 public class OrderAction extends ActionSupport implements SessionAware,RequestAware{
 
 	private OrderDao orderDao;
+	private BookDao bookDao;
+	private UserDao userDao;
+	private RewardDao rewardDao;
 	private String userid;
 	private Map<String,Object> session;
 	private Map<String,Object> request;
-	private int order_id = 27;	//订单编号，这是一个bug，应该让订单编号自动生成，而不是数据库编号自动增长
-	//这个值随着服务器的重启随时都需要改
+	private int order_id = 32;	//订单编号，这是一个bug，应该让订单编号自动生成，而不是数据库编号自动增长
+	//这个值随着服务器的重启随时都需要改，与数据库中订单编号最大的相同
 	private String orderid;
+	private String state;	//获取订单状态
 	
+	
+
+	public void setRewardDao(RewardDao rewardDao) {
+		this.rewardDao = rewardDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public void setBookDao(BookDao bookDao) {
+		this.bookDao = bookDao;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public String getOrderid() {
 		return orderid;
@@ -135,14 +166,61 @@ public class OrderAction extends ActionSupport implements SessionAware,RequestAw
 		
 		int id = Integer.parseInt(orderid);
 		List<OrderItemVo> list = orderDao.findOrderItem(id);
+		OrdersVo order = orderDao.findOrderByOrderId(id);
 		
 		request.put("item", list);
+		request.put("order", order);
 		
-		for(OrderItemVo item : list) {
-			System.out.println(item.getBook_id());
+		//查询用户信息
+		UsersVo user = userDao.findById(order.getUser_id());
+		request.put("user", user);
+		
+		//查询用户地址
+		List<RewardVo> rewardList = rewardDao.findAddress(user.getId());
+		RewardVo reward = null;
+		for(RewardVo re : rewardList) {
+			reward = re;
 		}
+		request.put("reward", reward);
 		
-		return NONE;
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询所有订单
+	 * @return
+	 * @throws Exception
+	 */
+	public String listAll() throws Exception{
+		
+		boolean st = Boolean.parseBoolean(state);
+		List<OrdersVo> list = orderDao.listAll(st);
+		
+		request.put("orders", list);
+		
+		return "listOrders";
+	}
+	
+	/**
+	 * 发货
+	 * @return
+	 * @throws Exception
+	 */
+	public String ship() throws Exception{
+	
+		int id = Integer.parseInt(orderid);
+		orderDao.ship(id);
+		request.put("message", "已确认发货!!!");
+		return "ship";
+	}
+	
+	public String delete() throws Exception{
+		
+		int id = Integer.parseInt(orderid);
+		orderDao.delete(id);
+		request.put("message", "删除成功!!!");
+		
+		return "delete";
 	}
 
 }

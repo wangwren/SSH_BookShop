@@ -102,7 +102,10 @@
 	</bean>
 	
 	<bean id="orderAction" class="com.dhee.action.OrderAction" scope="prototype">
-		<property name="orderDao" ref="orderDao"></property>
+		<property name="orderDao" ref="orderDao"/>
+		<property name="bookDao" ref="bookDao"/>
+		<property name="userDao" ref="userDao"/>
+		<property name="rewardDao" ref="rewardDao"/>
 	</bean>
 	
 	<!-- 图书类型 -->

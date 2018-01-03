@@ -32,4 +32,30 @@ public class UserDao {
 		List<UsersVo> list = this.hibernateTemplate.find(hql, values);
 		return list;
 	}
+	
+	
+	/**
+	 * 查询指定用户的信息
+	 * @param id
+	 * @return
+	 */
+	public UsersVo findById(int id) {
+		
+		String hql = "from UsersVo where id=?";
+		List<UsersVo> list = this.hibernateTemplate.find(hql, id);
+		UsersVo user = null;
+		for(UsersVo u : list) {
+			user = u;
+		}
+		return user;
+	}
+
+	/**
+	 * 查询全部用户
+	 */
+	public List<UsersVo> findAll() {
+		
+		List<UsersVo> list = this.hibernateTemplate.find("from UsersVo");
+		return list;
+	}
 }
