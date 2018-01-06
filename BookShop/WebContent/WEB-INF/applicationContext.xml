@@ -110,7 +110,7 @@
 	</bean>
 	
 	<!-- 图书 -->
-	<bean id="bookAction" class="com.dhee.action.BookAction">
+	<bean id="bookAction" class="com.dhee.action.BookAction" scope="prototype">
 		<property name="categoryDao" ref="categoryDao"/>
 		<property name="bookDao" ref="bookDao"></property>
 	</bean>
@@ -120,7 +120,7 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	
-	<bean id="categoryAction" class="com.dhee.action.CategoryAction">
+	<bean id="categoryAction" class="com.dhee.action.CategoryAction" scope="prototype">
 		<property name="categoryDao" ref="categoryDao"/>
 	</bean>
 </beans>

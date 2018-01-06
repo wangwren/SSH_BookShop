@@ -58,4 +58,20 @@ public class UserDao {
 		List<UsersVo> list = this.hibernateTemplate.find("from UsersVo");
 		return list;
 	}
+
+	/**
+	 * 验证用户名是否存在
+	 * @param username
+	 * @return
+	 */
+	public UsersVo checkName(String username) {
+		
+		List<UsersVo> list = this.hibernateTemplate.find("from UsersVo where username = ?", username);
+		
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		
+		return null;
+	}
 }

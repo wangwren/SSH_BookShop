@@ -1,8 +1,12 @@
 package com.dhee.action;
 
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -136,6 +140,26 @@ public class UserAction extends ActionSupport implements RequestAware,SessionAwa
 		request.put("users", list);
 		
 		return SUCCESS;
+	}
+	
+	/**
+	 * 验证用户名是否存在
+	 * @return
+	 * @throws Exception
+	 */
+	public String checkName() throws Exception{
+		
+		UsersVo u = userDao.checkName(user.getUsername());
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		if(u != null) {
+			writer.print("no");
+		}else {
+			writer.print("yes");
+		}
+		
+		return NONE;
 	}
 
 	

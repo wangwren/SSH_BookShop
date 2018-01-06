@@ -7,9 +7,10 @@
 <title>登录</title>
 
 <link href="css/index.css" rel="stylesheet" type="text/css" />
-<script src="js/jquery.min.js"></script>
+<!-- <script src="js/jquery.min.js"></script> -->
 <script src="js/jquery-1.7.2.min.js"></script>
 <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script> --%>
 				<script type="text/javascript">
 					$(document).ready(function () {
 						$('#horizontalTab').easyResponsiveTabs({
@@ -30,7 +31,14 @@
 					});
 				   </script>
 				   <script type="text/javascript">  
-							function insertManager() {  
+							function insertManager() {
+								
+								checkName();
+								var prompt = $("#userPrompt").val();
+								if(prompt != null){
+									return false;
+								}
+								
 							    var password = document.getElementById("password").value;  
 							    var repassword = document.getElementById("repassword").value;  
 							         if(password!=repassword){  
@@ -42,6 +50,31 @@
 							          return true;  
 							    }  
 					</script> 
+<!-- 用户名是否存在验证 -->
+<script type="text/javascript">
+	function checkName() {
+		//获取用户输入的登录名
+		var username = $("#username").val();
+		//判断，如果用户名为空则进行提示
+		//alert(username);
+		if(username.trim() == ""){
+			$("#userPrompt").html("用户名不能为空");
+		}else{
+			//登录名不为空，ajax请求，验证数据库中是否存在该登录名
+			var url = "${pageContext.request.contextPath }/userCheckName.action";
+			//传递登录名参数
+			var param = {"user.username" : username};
+			$.post(url,param,function(data){
+				if(data && data == "no"){
+					$("#userPrompt").html("登录名已存在");
+				}else{
+					$("#userPrompt").html("");
+				}
+			});
+		}
+	}
+	
+</script>
 
 </head>
 <body>
@@ -62,7 +95,9 @@
 						
 						<div class="register "style="margin-top:15px;">
 							<form action="userAdd" method="post">											
-								<input placeholder="用户名" name="user.username" class="user" type="text" required="">									
+								<input placeholder="用户名" id="username" name="user.username" class="user" type="text" required="" onblur="checkName()">
+                				<SPAN class="user" id="userPrompt" style="FONT-WEIGHT: bold;"></SPAN>
+								
 								<input placeholder="电子邮箱" name="user.email" class="mess" type="text" required="">
 								<input placeholder="手机号" name="user.phone" class="mess" type="text" required="">										
 								<input placeholder="密码" id="password" name="user.password"  type="password" required="">	
