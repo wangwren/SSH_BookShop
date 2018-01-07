@@ -35,7 +35,7 @@
 								
 								checkName();
 								var prompt = $("#userPrompt").val();
-								if(prompt != null){
+								if(prompt != null && prompt !=""){
 									return false;
 								}
 								
