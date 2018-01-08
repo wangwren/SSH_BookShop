@@ -36,7 +36,7 @@ public class OrderAction extends ActionSupport implements SessionAware,RequestAw
 	private String userid;
 	private Map<String,Object> session;
 	private Map<String,Object> request;
-	private int order_id = 32;	//订单编号，这是一个bug，应该让订单编号自动生成，而不是数据库编号自动增长
+	private int order_id = 33;	//订单编号，这是一个bug，应该让订单编号自动生成，而不是数据库编号自动增长
 	//这个值随着服务器的重启随时都需要改，与数据库中订单编号最大的相同
 	private String orderid;
 	private String state;	//获取订单状态
