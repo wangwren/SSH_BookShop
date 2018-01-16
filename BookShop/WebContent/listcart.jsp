@@ -110,8 +110,9 @@
 				</table>
 			</div>
 			
-			<div class="shdz">
+			<!-- <div class="shdz"> -->
 				<s:if test="#session.reward.size==0">
+				<div class="shdz">
 					<form action="addAddress" method="post">
 						<table>
 							<td>收货地址：</td>
@@ -122,19 +123,44 @@
 							<td><input type="submit" value="提交"/></td>
 						</table>
 					</form>
+				</div>
 				</s:if>
 				<s:else>
-						<table>
-							<td>收货地址：</td>
-							<s:iterator var="re" value="#session.reward">
-							<td><s:property value="#re.address"/></td>
-							</s:iterator>
-						</table>
-						<div class="tijiao">
-							<a href="${pageContext.request.contextPath }/confirmOrder?userid=${user.id}" class="tijiao">确认订单</a>
-						</div>
+						
+					<div class="shdz">
+						<form action="addAddress" method="post">
+							<table>
+								<td>添加新的收货地址：</td>
+								<td>
+									<input placeholder="输入地址" name="reward.address" class="address" type="text" required="">
+									<input type="hidden" name="reward.user_id" value="${user.id }">
+								</td>
+								<td><input type="submit" value="提交"/></td>
+							</table>
+						</form>
+					</div>
+					<div class="shdz">		
+						选择收货地址：
+						<form action="${pageContext.request.contextPath }/confirmOrder?userid=${user.id}" method="post">
+							<table>
+								<!-- <tr>
+								<td>选择收货地址：</td>
+								</tr> -->
+								
+								<s:iterator var="re" value="#session.reward">
+									<tr/>
+										<input type="radio" name="address" value="${re.address}"><s:property value="#re.address"/><br/>
+									<!-- </td> -->
+									<tr/>
+								</s:iterator>
+
+							</table>
+							<input type="submit" value="确认订单" class="tijiao">
+						</form>
+					</div>
+						
 				</s:else>
-			</div>
+			<!-- </div> -->
 		
 		 </s:if>
 	     

@@ -18,6 +18,7 @@
     		<td>订单时间</td>
     		<td>订单状态</td>
     		<td>订单总价</td>
+    		<td>收货地址</td>
     		<td colspan="2">操作</td>
     	</tr>
     	
@@ -27,6 +28,7 @@
     			<td><s:property value="#order.ordertime"/></td>
     			<td style="color: red">${order.state==true?'已发货':'未发货' }</td>
     			<td><s:property value="#order.price"/></td>
+    			<td><s:property value="#order.address"/></td>
     			<td>
 	    			<s:a href="orderItemFind?orderid=%{#order.id}">查看明细</s:a>
 	    			<s:if test="#order.state==true">

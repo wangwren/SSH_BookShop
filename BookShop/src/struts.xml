@@ -95,6 +95,7 @@
 	<package name="order" extends="struts-error" namespace="/">
 		<action name="confirmOrder" class="orderAction" method="confirm">
 			<result>/orderAddSuccess.jsp</result>
+			<result name="addressError">/message.jsp</result>
 		</action>
 		
 		<action name="findOrder" class="orderAction" method="findOrder">

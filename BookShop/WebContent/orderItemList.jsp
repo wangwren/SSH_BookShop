@@ -39,14 +39,14 @@
     		<td>用户名</td>
     		<td>电话</td>
     		<td>邮箱</td>
-    		<td>地址</td>
+    		<!-- <td>地址</td> -->
     	</tr>
     	
     	<tr>
     		<td>${user.username }</td>
     		<td>${user.phone }</td>
     		<td>${user.email }</td>
-    		<td>${reward.address}</td>
+    		<%-- <td>${reward.address}</td> --%>
     	</tr>
     </table>
     <br/>

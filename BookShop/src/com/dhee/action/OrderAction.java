@@ -36,12 +36,23 @@ public class OrderAction extends ActionSupport implements SessionAware,RequestAw
 	private String userid;
 	private Map<String,Object> session;
 	private Map<String,Object> request;
-	private int order_id = 33;	//订单编号，这是一个bug，应该让订单编号自动生成，而不是数据库编号自动增长
+	private int order_id = 40;	//订单编号，这是一个bug，应该让订单编号自动生成，而不是数据库编号自动增长
 	//这个值随着服务器的重启随时都需要改，与数据库中订单编号最大的相同
 	private String orderid;
 	private String state;	//获取订单状态
 	
+	private String address;
 	
+	
+	
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public void setRewardDao(RewardDao rewardDao) {
 		this.rewardDao = rewardDao;
@@ -116,6 +127,14 @@ public class OrderAction extends ActionSupport implements SessionAware,RequestAw
 		order.setUser_id(id);
 		order.setOrdertime(new Date());
 		
+		String newAddress = new String(address.getBytes("iso-8859-1"), "UTF-8");
+		if(newAddress == null || newAddress == "") {
+			request.put("message", "请选择收货地址！！！");
+			return "addressError";
+		}
+		order.setAddress(newAddress);
+		
+		
 		orderDao.addOrder(order);
 		
 		order_id = order_id + 1;
@@ -125,14 +144,12 @@ public class OrderAction extends ActionSupport implements SessionAware,RequestAw
 			//得到一个购物项就生成一个订单项
 			CartItem citem = me.getValue();
 			OrderItemVo item = new OrderItemVo();
-			//item.setBook(citem.getBook());
 			item.setPrice(citem.getPrice());
 			item.setQuantity(citem.getQuantity());
 			item.setBook_id(citem.getBook().getId());
 			item.setOrder_id(order_id);
 			
 			orderDao.addOrderItem(item);
-			//order.getOrderitems().add(item);
 		}
 		
 		

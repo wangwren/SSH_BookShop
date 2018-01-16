@@ -17,6 +17,7 @@ import javax.persistence.Table;
 		price double,	
 		state boolean, 
 		user_id int(10),
+		address varchar(100),
 		primary key(id)
 	);
 
@@ -34,25 +35,17 @@ public class OrdersVo {
 	private boolean state;
 	@Column(name="user_id")
 	private int user_id;
+	@Column(name="address")
+	private String address;
 	
-	/*public UsersVo getUser() {
-		return user;
+
+	public String getAddress() {
+		return address;
 	}
 
-	public void setUser(UsersVo user) {
-		this.user = user;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
-	public Set<OrderItemVo> getOrderitems() {
-		return orderitems;
-	}
-
-	public void setOrderitems(Set<OrderItemVo> orderitems) {
-		this.orderitems = orderitems;
-	}
-
-	private UsersVo user;
-	private Set<OrderItemVo> orderitems = new HashSet<OrderItemVo>();*/
 
 	@Id
 	public int getId() {
