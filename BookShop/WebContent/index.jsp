@@ -147,6 +147,8 @@
 					</div>
 				</div>
 			</s:iterator>
+			
+			
 		</s:if>
 		<s:elseif test="#request.cbooks!=null">
 			<s:iterator var="book" value="#request.cbooks">

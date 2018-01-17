@@ -147,10 +147,16 @@
 								<td>选择收货地址：</td>
 								</tr> -->
 								
-								<s:iterator var="re" value="#session.reward">
+								<s:iterator var="re" value="#session.reward" status="s">
 									<tr/>
-										<input type="radio" name="address" value="${re.address}"><s:property value="#re.address"/><br/>
-									<!-- </td> -->
+										<!-- 遍历出来的第一条数据作为默认地址 -->
+										<s:if test="#s.first">
+											<input type="radio" name="address" value="${re.address}" checked="checked"><s:property value="#re.address"/><br/>
+										</s:if>
+										<!-- 不是第一条数据则正常显示 -->
+										<s:else>
+											<input type="radio" name="address" value="${re.address}"><s:property value="#re.address"/><br/>
+										</s:else>
 									<tr/>
 								</s:iterator>
 
