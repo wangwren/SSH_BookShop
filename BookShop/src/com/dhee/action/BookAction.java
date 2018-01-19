@@ -3,10 +3,20 @@ package com.dhee.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFHeader;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.aspectj.util.FileUtil;
@@ -239,6 +249,121 @@ public class BookAction extends ActionSupport implements RequestAware{
 		List<BooksVo> list = bookDao.findByCid(id);
 		request.put("cbooks", list);
 		return "findByCid";
+	}
+	
+	/**
+	 * 后台图书数据导出至Excel表
+	 * @return
+	 * @throws Exception
+	 */
+	public String table2Excel() throws Exception{
+		
+		//设置表头
+		String[] headName = {"图书名称","作者","价格","描述"};
+		
+		//表的列数
+		int cellNumber = headName.length;
+		
+		//创建一个Excel
+		HSSFWorkbook workBook = new HSSFWorkbook();
+		
+		//表的列
+		HSSFCell cell = null;
+		
+		//表的行
+		HSSFRow row = null;
+		
+		//设置表头居中
+		HSSFCellStyle headStyle = workBook.createCellStyle();
+		headStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		
+		//设置数据居中
+		HSSFCellStyle dataStyle = workBook.createCellStyle();
+		dataStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		
+		//设置字体
+		HSSFFont font = workBook.createFont();
+		
+		//创建一个sheet，对应Excel的sheet
+		HSSFSheet sheet = workBook.createSheet("sheet1");
+		
+		//得到sheet的头
+		HSSFHeader header = sheet.getHeader();
+		
+		//得到所有图书数据
+		List<BooksVo> books = bookDao.list();
+		
+		//如果得到的数据为空
+		if(books.size() < 1 || books == null) {
+			header.setCenter("暂无数据");
+		}else {
+			//如果有数据，将表头设置上
+			header.setCenter("图书表");
+			//设置表格第1行，即表头
+			row = sheet.createRow(0);
+			//设置行高
+			row.setHeight((short) 400);
+			
+			//设置表头值
+			for(int i = 0; i < cellNumber; i++) {
+				//创建第1行第i列
+				cell = row.createCell(i);
+				//设置第1行第i列的数据，即将表头设置进去
+				cell.setCellValue(headName[i]);
+				
+				sheet.setColumnWidth(i,8000);//设置列的宽度  
+			    font.setColor(HSSFFont.COLOR_NORMAL); // 设置单元格字体的颜色.  
+			    font.setFontHeight((short)350); //设置单元字体高度  
+			    headStyle.setFont(font);//设置字体风格  
+			    cell.setCellStyle(headStyle);  
+			}
+			
+			//填充数据
+			for(int i = 0; i < books.size();i++) {
+				BooksVo book = books.get(i);
+				row = sheet.createRow(i + 1);
+				row.setHeight((short) 400);
+				if(book.getName() != null) {
+					cell = row.createCell(0);
+					cell.setCellValue(book.getName());
+					cell.setCellStyle(dataStyle);
+				}
+				if(book.getAuthor() != null) {
+					cell = row.createCell(1);
+					cell.setCellValue(book.getAuthor());
+					cell.setCellStyle(dataStyle);
+				}
+				if(book.getPrice() != 0) {
+					cell = row.createCell(2);
+					cell.setCellValue(book.getPrice());
+					cell.setCellStyle(dataStyle);
+				}
+				if(book.getDescription() != null) {
+					cell = row.createCell(3);
+					cell.setCellValue(book.getDescription());
+					cell.setCellStyle(dataStyle);
+				}
+			}
+			
+			HttpServletResponse response = ServletActionContext.getResponse();
+			OutputStream out = response.getOutputStream();
+			
+			response.setHeader("Content-disposition","attachment; filename=" + "book" + ".xls");//filename是下载的xls的名，建议最好用英文  
+            response.setContentType("application/msexcel;charset=UTF-8");//设置类型  
+            response.setHeader("Pragma","No-cache");//设置头  
+            response.setHeader("Cache-Control","no-cache");//设置头  
+            response.setDateHeader("Expires", 0);//设置日期头  
+            
+            workBook.write(out);
+            out.flush();
+            
+            if(out != null) {
+            	out.close();
+            }
+            
+		}
+		
+		return null;
 	}
 
 }

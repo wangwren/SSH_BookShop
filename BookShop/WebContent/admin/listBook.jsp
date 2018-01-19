@@ -34,5 +34,6 @@
     		</tr>
     	</s:iterator>
     </table>
+    <a href="${pageContext.request.contextPath }/Book_table2Excel.action">导出至Excel</a>
   </body>
 </html>
